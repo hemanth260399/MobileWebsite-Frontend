@@ -1,0 +1,32 @@
+.header {
+    display: flex;
+    justify-content: space-around;
+    height: 50px;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: orange;
+}
+.header button{
+    background-color:inherit;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: large;
+    font-weight: bolder;
+    border-bottom: 0px solid white;
+}
+.header button:hover{
+    background-color: #e65c00;
+    color: white;
+    border-bottom: 2px solid white;
+    font-size: larger;
+    transform: translateY(5px);
+    transition: background-color 0.9s ease-out, transform 0.5s ease-out;
+}
+.iconarea{
+    color: aliceblue;
+}
