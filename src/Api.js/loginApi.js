@@ -39,7 +39,7 @@ export let googleLoginApi = async () => {
         let response = await axios.get(`${url}/auth/loginSuccess`, {
             withCredentials: true,
             headers: {
-                Accept: 'application/json',
+                "Accept": 'application/json',
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Credentials': 'true',
             }
