@@ -13,6 +13,7 @@ import { Forgetpassword } from "./Loginpage/forgetPassword";
 import { Changepassword } from "./Loginpage/changepassword";
 import { SuccessLogin } from "./Loginpage/loginSuccess";
 import { Rejectspage } from "./productPage/reject";
+import { NotFound } from "./Loginpage/404ERROR";
 function App() {
   let PrivateRouter = ({ component }) => {
     let isAuthenticated = Boolean(JSON.parse(localStorage.getItem("userData")));
@@ -44,8 +45,8 @@ function App() {
               <Route path="/success" element={<PrivateRouter component={<Successpage />} />} />
               <Route path="/reject" element={<PrivateRouter component={<Rejectspage />} />} />
               <Route path="/order" element={<PrivateRouter component={<OrderSummaryPage />} />} />
-              <Route path="*" element={<Navigate to={"/products"} />} />
             </Route>
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
       </Provider>

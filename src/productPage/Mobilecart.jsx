@@ -63,7 +63,6 @@ const Mobilecart = () => {
         setqtypiece({})
         setcart([])
         settotalValue(0)
-        console.log(responsedata.stripeSessionId)
         let result = await stripe.redirectToCheckout({
             sessionId: responsedata.stripeSessionId.id
         });
