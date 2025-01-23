@@ -80,7 +80,7 @@ const Mobilecart = () => {
                         <div className="card m-5" key={data.id} style={{ maxWidth: 1200, border: 0, borderRadius: 20, Color: "lightseablue" }}>
                             <div className="row no-gutters" >
                                 <div className="col-md-3 text-cente r p-2" style={{ borderRight: "2px dashed" }}>
-                                    <img src={data.image} alt="..." style={{ width: 220, height: 220, borderRadius: 20, }} />
+                                    <img src={data.image} alt="..." style={{ width: "100%", height: "100%", borderRadius: 20, }} />
                                 </div>
                                 <div className="col-md-7">
                                     <div className="card-body">

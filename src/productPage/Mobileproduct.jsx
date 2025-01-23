@@ -46,7 +46,7 @@ const Mobilecard = ({
         style={{
           width: "25rem",
           display: "inline-flex",
-          margin: "40px 10px 10px 60px",
+          margin: "40px 10px 10px 4%",
           textAlign: "center",
         }}
         key={id}
