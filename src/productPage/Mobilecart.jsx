@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { placeOrderAPI, removefromcartAPI, viewCartAPI } from "../Api.js/addtocartApi"
 import { useSearchParams } from "react-router"
 import { loadStripe } from '@stripe/stripe-js';
+import { Loader } from "../loading";
 const Mobilecart = () => {
     let customerdata = useSelector((state) => state.Itemreducer)
     let dispatch = useDispatch()
@@ -11,6 +12,7 @@ const Mobilecart = () => {
     let [cartID, setcartID] = useState("")
     const [qtypiece, setqtypiece] = useState({})
     let [totalValue, settotalValue] = useState(0)
+    let [loading, setloading] = useState(false)
     const qtychange = (id, e) => {
         let tempdata = { ...qtypiece, [id]: e.target.value }
         setqtypiece(tempdata)
@@ -31,7 +33,9 @@ const Mobilecart = () => {
     useEffect(() => {
         let cartData = async () => {
             try {
+                setloading(true)
                 let data = await viewCartAPI(params.get("id"))
+                setloading(false)
                 setcartID(data.cartId)
                 setcart(data.data)
                 setqtypiece(
@@ -42,6 +46,7 @@ const Mobilecart = () => {
                 )
                 settotalValue(data.totalValue)
             } catch (e) {
+                setloading(false)
                 alert(e)
             }
         }
@@ -117,6 +122,7 @@ const Mobilecart = () => {
                     </div>
                 </div>
             }
+            {loading && <Loader />}
         </>
     )
 

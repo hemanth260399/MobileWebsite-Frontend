@@ -2,12 +2,14 @@ import { useState } from "react"
 import { useNavigate, useSearchParams } from "react-router"
 import { changePasswordApi } from "../Api.js/loginApi"
 import { useSelector } from "react-redux"
+import { Loader } from "../loading"
 
 export let Changepassword = () => {
     let navigate = useNavigate()
     let [params] = useSearchParams()
     const data = useSelector((state) => state.Itemreducer)
     const [error, setError] = useState('');
+    let [loading, setloading] = useState(false)
     let [password, setpassword] = useState({ newpassword: "", confirmpassword: "" })
     let dataChange = (e) => {
         setpassword({ ...password, [e.target.name]: e.target.value })
@@ -22,12 +24,14 @@ export let Changepassword = () => {
             alert("Passwords do not match")
         } else {
             try {
+                setloading(true)
                 let responseData = await changePasswordApi(password.newpassword, params.get("token"))
-                console.log(responseData)
+                setloading(false)
                 alert("Password changed successfully")
                 setpassword({ newpassword: "", confirmpassword: "" })
                 navigate("/")
             } catch (e) {
+                setloading(false)
                 alert(e)
             }
         }
@@ -73,6 +77,7 @@ export let Changepassword = () => {
                     </form>
                 </div>
             </div>
+            {loading && <Loader />}
         </>
     )
 }

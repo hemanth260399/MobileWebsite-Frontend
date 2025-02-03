@@ -3,10 +3,12 @@ import './loginPage.css';
 import { Navigate, useNavigate } from "react-router";
 import { forgetPasswordApi } from "../Api.js/loginApi";
 import { useSelector } from "react-redux";
+import { Loader } from "../loading";
 export let Forgetpassword = () => {
     let navigate = useNavigate()
     let [Email, setEmail] = useState("")
     const [error, setError] = useState('');
+    let [loading, setloading] = useState(false)
     const data = useSelector((state) => state.Itemreducer)
     let handleSubmit = async (e) => {
         e.preventDefault();
@@ -14,10 +16,13 @@ export let Forgetpassword = () => {
             setError('Please fill out the fields');
         } else {
             try {
+                setloading(true)
                 let data = await forgetPasswordApi(Email)
                 alert(data.msg)
+                setloading(false)
                 navigate("/")
             } catch (e) {
+                setloading(false)
                 alert(e)
             }
         }
@@ -47,7 +52,9 @@ export let Forgetpassword = () => {
                         <p style={{ cursor: "pointer", textDecoration: "underline" }} className="text-primary text-center mt-3" onClick={() => navigate("/")}>Login page</p>
                     </form>
                 </div>
+                {loading && <Loader />}
             </div>
+
         </>
     )
 }

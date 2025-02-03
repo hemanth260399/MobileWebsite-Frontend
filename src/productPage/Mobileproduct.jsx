@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import { addtocartAPI, removefromcartAPI } from "../Api.js/addtocartApi";
 import { useState } from "react";
+import { Loader } from "../loading";
 const Mobilecard = ({
   id,
   image,
@@ -16,6 +17,7 @@ const Mobilecard = ({
   let [star, setstar] = useState(["hello"])
   let [quantity, setquantity] = useState(1)
   let [cartFlag, setcartFlag] = useState([])
+  let [loading, setloading] = useState(false)
   let customerdata = useSelector((state) => state.Itemreducer)
   const cartincre = async () => {
     let data = await addtocartAPI({ product: { id, brand, price, image, description, title, quantity }, customerDetails: { customerid: customerdata.userInfo.id, customername: customerdata.userInfo.email } })
@@ -25,10 +27,17 @@ const Mobilecard = ({
     }
   };
   const cartdecre = async (title, price) => {
-    let responsedata = await removefromcartAPI({ customerid: customerdata.userInfo.id, title: title, total: price })
-    let tempData = cartFlag.filter(data => data !== title)
-    setcartFlag(tempData)
-    dispatch({ type: "cartcountdec" })
+    try {
+      setloading(true)
+      let responsedata = await removefromcartAPI({ customerid: customerdata.userInfo.id, title: title, total: price })
+      setloading(false)
+      let tempData = cartFlag.filter(data => data !== title)
+      setcartFlag(tempData)
+      dispatch({ type: "cartcountdec" })
+    } catch (error) {
+      console.log(error)
+      setloading(false)
+    }
   };
   let addFavourites = (title) => {
     if (!star.includes(title)) {
@@ -44,10 +53,11 @@ const Mobilecard = ({
       <div
         className="card-deck text-center"
         style={{
-          width: "25rem",
+          width: "26vw",
           display: "inline-flex",
           margin: "40px 10px 10px 4%",
           textAlign: "center",
+          overflow: "hidden",
         }}
         key={id}
       >
@@ -64,7 +74,7 @@ const Mobilecard = ({
             className="card-img-top"
             alt={title}
             style={{
-              width: 368,
+              width: 366,
               height: 240,
               borderRadius: "20px 20px 0px 0px",
             }}
@@ -124,6 +134,7 @@ const Mobilecard = ({
       >
         <i className="fa fa-heart" style={{ color: star.includes(title) ? "red" : "grey", }}></i>
       </button>
+      {loading && <Loader />}
     </>
   );
 };
