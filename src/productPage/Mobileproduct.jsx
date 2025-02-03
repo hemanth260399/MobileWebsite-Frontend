@@ -53,9 +53,9 @@ const Mobilecard = ({
       <div
         className="card-deck text-center"
         style={{
-          width: "26vw",
+          maxWidth: "24rem",
           display: "inline-flex",
-          margin: "40px 10px 10px 4%",
+          margin: "40px 10px 10px 60px",
           textAlign: "center",
           overflow: "hidden",
         }}
@@ -74,7 +74,7 @@ const Mobilecard = ({
             className="card-img-top"
             alt={title}
             style={{
-              width: 366,
+              width: 353,
               height: 240,
               borderRadius: "20px 20px 0px 0px",
             }}
